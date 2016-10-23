@@ -82,6 +82,9 @@
     <footer>
     </footer>
 
+    <% if Rails.env.development? %>
+      <%= console %>
+    <%end%>
   </div> <!-- /container -->
 
 </body>
