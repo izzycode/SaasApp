@@ -12,11 +12,11 @@ class RegistrationsController < Milia::RegistrationsController
   # CALLBACK: Tenant.tenant_signup      -- after completing user account
   # ------------------------------------------------------------------------------
   def create
-    
+
       # have a working copy of the params in case Tenant callbacks
       # make any changes
     tenant_params = sign_up_params_tenant
-    user_params   = sign_up_params_user
+    user_params   = sign_up_params_user.merge({ is_admin: true })
     coupon_params = sign_up_params_coupon
 
     sign_out_session!
