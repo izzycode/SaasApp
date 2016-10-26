@@ -62,13 +62,13 @@ class ProjectsController < ApplicationController
 
   def users
     @project_users = (@project.users + (User.where(tenant_id: @tenant.id, is_admin: true)) - [current_user])
-    @other_users = @tenant.users.where(tenant_id: @tenant.id, is_admin: false) - (@projecs_users + [current_user])
+    @other_users = @tenant.users.where(is_admin: false) - (@project_users + [current_user])
   end
 
   def add_user
-    @project_user = UserProject.new(user_id: params[:user_id], product_id: @project.id)
+    @project_user = UserProject.new(user_id: params[:user_id], project_id: @project.id)
 
-    respond_to fo |format|
+    respond_to do |format|
       if @project_user.save
         format.html { redirect_to users_tenant_project_url(id: @project.id, tenant_id: @project.tenant_id),
                       notice: "User was successfully added to project." }
@@ -78,7 +78,7 @@ class ProjectsController < ApplicationController
       end
     end
   end
-  
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
