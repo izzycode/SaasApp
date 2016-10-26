@@ -3,11 +3,11 @@ class Payment < ActiveRecord::Base
   belongs_to :tenant
 
   def self.month_options
-    Date::MONTHNAMES.compact.each_with_index.map { |name, i| ["#{i-1} - #{name}", i-1] }
+    Date::MONTHNAMES.compact.each_with_index.map { |name, i| ["#{i+1} - #{name}", i+1] }
   end
 
   def self.year_options
-    (Date.today.year..(Date.today.year*10)).to_a
+    (Date.today.year..(Date.today.year+10)).to_a
   end
 
   def process_payment
@@ -15,8 +15,8 @@ class Payment < ActiveRecord::Base
 
     Stripe::Charge.create customer: customer.id,
                           amount: 10000,
-                          description: 'Premium',
+                          description: 'Charge for Premium IzzySaas access.',
                           currency: 'usd'
   end
-  
+
 end

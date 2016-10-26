@@ -22,7 +22,7 @@
         <%= f.password_field :password_confirmation, class: "form-control" %>
       </div>
       <%= fields_for( :tenant ) do |w| %>
-        <div class="from-group col-md-6 no-left-padding">
+        <div class="form-group col-md-6 no-left-padding">
           <%= w.label :name, 'Organization' %>
           <span class="description">(Unique name for your group or organization for the account.)</span>
           <%= w.text_field :name, required: true, class: "form-control" %>
@@ -38,7 +38,7 @@
                 <%= p.label :card_number, "Card Number", data: { stripe: 'label' } %>
                 <%= p.text_field :card_number, class: "form-control", required: true, data: { stripe: 'number'} %>
               </div>
-              <div class="form-group col-md-2 align-right">
+              <div class="form-group col-md-2 no-right-padding">
                 <%= p.label :card_cvv, "CVV Number", data: { stripe: 'label' } %>
                 <%= p.text_field :card_cvv, class: "form-control", required: true, data: { stripe: 'cvv'} %>
               </div>
@@ -50,7 +50,7 @@
                   <%= p.select :card_expires_month,
                                 options_for_select(Payment.month_options),
                                 { include_blank: "Month" },
-                                "data-stripe" => "exp-month",
+                                data: { stripe: "exp-month"},
                                 class: "form-control", required: true  %>
                 </div>
                 <div class="col-md-3">
